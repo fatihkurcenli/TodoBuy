@@ -7,15 +7,15 @@ class ToBuyRepository(
     private val appDataBase: AppDataBase
 ) {
 
-    fun getAllItems(): List<ItemEntity> {
+    suspend fun getAllItems(): List<ItemEntity> {
         return appDataBase.itemEntityDao().getAllItemEntity()
     }
 
-    fun insertItem(itemEntity: ItemEntity) {
+    suspend fun insertItem(itemEntity: ItemEntity) {
         appDataBase.itemEntityDao().insert(itemEntity)
     }
 
-    fun deleteItem(itemEntity: ItemEntity) {
+    suspend fun deleteItem(itemEntity: ItemEntity) {
         appDataBase.itemEntityDao().delete(itemEntity)
     }
 

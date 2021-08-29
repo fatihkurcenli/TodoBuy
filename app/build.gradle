@@ -19,6 +19,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -51,6 +55,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation("androidx.room:room-ktx:$room_version")
     testImplementation("androidx.room:room-testing:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
 
     //Navigation Compose
     def nav_version = "2.3.5"

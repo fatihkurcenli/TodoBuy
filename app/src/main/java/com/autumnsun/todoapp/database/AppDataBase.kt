@@ -7,10 +7,7 @@ import androidx.room.RoomDatabase
 import com.autumnsun.todoapp.database.dao.ItemEntityDao
 import com.autumnsun.todoapp.database.entity.ItemEntity
 
-@Database(
-    entities = [ItemEntity::class],
-    version = 1
-)
+@Database(entities = [ItemEntity::class], version = 1)
 abstract class AppDataBase : RoomDatabase() {
 
     companion object {
@@ -29,5 +26,6 @@ abstract class AppDataBase : RoomDatabase() {
         }
 
     }
+
     abstract fun itemEntityDao(): ItemEntityDao
 }

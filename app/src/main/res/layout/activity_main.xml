@@ -6,14 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <!--Burada navGraph setlememiz gerekiyor-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navHostFragment"
-        android:name="com.autumnsun.todoapp.ui.home.HomeFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:navGraph="@navigation/nav_graph"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,11 @@
 package com.autumnsun.todoapp.database.entity
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "item_entity")
 data class ItemEntity(
-    val id: String = "",
+    @PrimaryKey val id: String = "",
     val title: String = "",
     val description: String? = null,
     val priority: Int = 0,

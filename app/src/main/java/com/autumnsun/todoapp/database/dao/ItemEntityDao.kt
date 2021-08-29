@@ -10,11 +10,11 @@ import com.autumnsun.todoapp.database.entity.ItemEntity
 interface ItemEntityDao {
 
     @Query("SELECT * FROM item_entity")
-    fun getAllItemEntity(): List<ItemEntity>
+    suspend fun getAllItemEntity(): List<ItemEntity>
 
     @Insert
-    fun insert(itemEntity: ItemEntity)
+    suspend fun insert(itemEntity: ItemEntity)
 
     @Delete
-    fun delete(itemEntity: ItemEntity)
+    suspend fun delete(itemEntity: ItemEntity)
 }
