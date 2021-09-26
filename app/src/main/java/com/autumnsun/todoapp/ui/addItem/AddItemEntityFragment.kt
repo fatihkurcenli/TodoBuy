@@ -41,7 +41,7 @@ class AddItemEntityFragment : BaseFragment() {
                 binding.titleEditText.text = null
                 binding.descriptionEditText.text = null
                 binding.radioGroup.check(R.id.radioButtonLow)
-                mainActivity.showKeyboard()
+                mainActivity.hideKeyboard(requireView())
                 binding.titleEditText.requestFocus()
             }
         }

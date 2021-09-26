@@ -23,7 +23,7 @@ class HomeFragment : BaseFragment(), ItemEntityInterface {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -40,11 +40,11 @@ class HomeFragment : BaseFragment(), ItemEntityInterface {
         binding.epoxyRecyclerView.setController(controller)
 
 
-        sharedViewModel.itemEntitiesLiveData.observe(viewLifecycleOwner) { itemEntitiyList ->
-            controller.itemEntityList = itemEntitiyList as ArrayList<ItemEntity>
+        sharedViewModel.itemEntitiesLiveData.observe(viewLifecycleOwner) { itemEntityList ->
+            controller.itemEntityList = itemEntityList as ArrayList<ItemEntity>
         }
 
-        //setup swip-to-delete item
+        //setup swipe-to-delete item
         EpoxyTouchHelper.initSwiping(binding.epoxyRecyclerView).right()
             .withTarget(HomeEpoxyController.ItemEntityEpoxyModel::class.java)
             .andCallbacks(object :

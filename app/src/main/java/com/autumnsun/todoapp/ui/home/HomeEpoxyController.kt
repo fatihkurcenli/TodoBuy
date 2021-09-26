@@ -1,12 +1,14 @@
 package com.autumnsun.todoapp.ui.home
 
 import android.content.res.ColorStateList
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyController
 import com.autumnsun.todoapp.R
 import com.autumnsun.todoapp.database.entity.ItemEntity
+import com.autumnsun.todoapp.databinding.ModelHeaderItemBinding
 import com.autumnsun.todoapp.databinding.ModelItemEntityBinding
 import com.autumnsun.todoapp.ui.epoxy.EmptyEpoxyModel
 import com.autumnsun.todoapp.ui.epoxy.LoadingEpoxyModel
@@ -40,13 +42,27 @@ class HomeEpoxyController(private val itemEntityInterface: ItemEntityInterface) 
             return EmptyEpoxyModel().id("empty_state").addTo(this)
         }
 
+        var currentPriority: Int = -1
 
-        itemEntityList.sortByDescending  {
+        itemEntityList.sortByDescending {
             it.priority
         }
 
         itemEntityList.forEach { item ->
+            if (item.priority != currentPriority) {
+                currentPriority = item.priority
+                val text = getHeaderTextPriority(currentPriority)
+                HeaderEpoxyModel(text).id(text).addTo(this)
+            }
             ItemEntityEpoxyModel(item, itemEntityInterface).id(item.id).addTo(this)
+        }
+    }
+
+    private fun getHeaderTextPriority(priority: Int): String {
+        return when (priority) {
+            1 -> "Low"
+            2 -> "Medium"
+            else -> "High"
         }
     }
 
@@ -76,6 +92,19 @@ class HomeEpoxyController(private val itemEntityInterface: ItemEntityInterface) 
             val color = ContextCompat.getColor(root.context, colorRes)
             priorityTextView.setBackgroundColor(color)
             cardView.setStrokeColor(ColorStateList.valueOf(color))
+        }
+
+    }
+
+    data class HeaderEpoxyModel(val headerText: String) :
+        ViewBindingKotlinModel<ModelHeaderItemBinding>(R.layout.model_header_item) {
+        override fun ModelHeaderItemBinding.bind() {
+            headerTitle.text = headerText
+            headerTitle.setOnClickListener {
+                if (headerText == "Low") {
+                    Toast.makeText(root.context, "Hello from: Low level", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
     }
