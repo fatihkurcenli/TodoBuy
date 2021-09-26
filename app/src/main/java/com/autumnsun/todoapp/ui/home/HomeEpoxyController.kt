@@ -1,5 +1,6 @@
 package com.autumnsun.todoapp.ui.home
 
+import android.content.res.ColorStateList
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -7,6 +8,7 @@ import com.airbnb.epoxy.EpoxyController
 import com.autumnsun.todoapp.R
 import com.autumnsun.todoapp.database.entity.ItemEntity
 import com.autumnsun.todoapp.databinding.ModelItemEntityBinding
+import com.autumnsun.todoapp.ui.epoxy.EmptyEpoxyModel
 import com.autumnsun.todoapp.ui.epoxy.LoadingEpoxyModel
 import com.autumnsun.todoapp.ui.epoxy.ViewBindingKotlinModel
 
@@ -35,8 +37,12 @@ class HomeEpoxyController(private val itemEntityInterface: ItemEntityInterface) 
             return
         }
         if (itemEntityList.isEmpty()) {
-            //todo empty state
-            return
+            return EmptyEpoxyModel().id("empty_state").addTo(this)
+        }
+
+
+        itemEntityList.sortByDescending  {
+            it.priority
         }
 
         itemEntityList.forEach { item ->
@@ -67,9 +73,10 @@ class HomeEpoxyController(private val itemEntityInterface: ItemEntityInterface) 
                 3 -> android.R.color.holo_red_dark
                 else -> R.color.purple_700
             }
-            priorityTextView.setBackgroundColor(ContextCompat.getColor(root.context, colorRes))
+            val color = ContextCompat.getColor(root.context, colorRes)
+            priorityTextView.setBackgroundColor(color)
+            cardView.setStrokeColor(ColorStateList.valueOf(color))
         }
 
     }
-
 }

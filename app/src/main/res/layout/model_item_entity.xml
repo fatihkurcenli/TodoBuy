@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="6dp"
+        app:strokeWidth="1px">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +30,6 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/descriptionTextView"
-                app:layout_constraintEnd_toStartOf="@+id/deleteImageView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -16,6 +16,10 @@ class ToBuyRepository(
         appDataBase.itemEntityDao().insert(itemEntity)
     }
 
+    suspend fun updateItem(itemEntity: ItemEntity) {
+        appDataBase.itemEntityDao().updateItem(itemEntity)
+    }
+
     suspend fun deleteItem(itemEntity: ItemEntity) {
         appDataBase.itemEntityDao().delete(itemEntity)
     }

@@ -3,7 +3,6 @@ package com.autumnsun.todoapp.ui.home
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -92,7 +91,15 @@ class HomeFragment : BaseFragment(), ItemEntityInterface {
     }
 
     override fun onBumpPriority(itemEntity: ItemEntity) {
-        TODO("Not yet implemented")
+        val currentPriority = itemEntity.priority
+        var newPriority = currentPriority + 1
+        if (newPriority > 3) {
+            newPriority = 1
+        }
+
+        //clone the itemEntity data class just update priority
+        val updatedItemEntity = itemEntity.copy(priority = newPriority)
+        sharedViewModel.updateItem(updatedItemEntity)
     }
 
 }
