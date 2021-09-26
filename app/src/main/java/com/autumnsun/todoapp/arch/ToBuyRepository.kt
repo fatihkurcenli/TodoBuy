@@ -2,12 +2,13 @@ package com.autumnsun.todoapp.arch
 
 import com.autumnsun.todoapp.database.AppDataBase
 import com.autumnsun.todoapp.database.entity.ItemEntity
+import kotlinx.coroutines.flow.Flow
 
 class ToBuyRepository(
     private val appDataBase: AppDataBase
 ) {
 
-    suspend fun getAllItems(): List<ItemEntity> {
+    fun getAllItems(): Flow<List<ItemEntity>> {
         return appDataBase.itemEntityDao().getAllItemEntity()
     }
 

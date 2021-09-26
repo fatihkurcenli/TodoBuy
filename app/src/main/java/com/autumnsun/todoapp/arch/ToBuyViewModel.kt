@@ -1,11 +1,11 @@
 package com.autumnsun.todoapp.arch
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.autumnsun.todoapp.database.AppDataBase
 import com.autumnsun.todoapp.database.entity.ItemEntity
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ToBuyViewModel() : ViewModel() {
@@ -13,24 +13,23 @@ class ToBuyViewModel() : ViewModel() {
 
     val itemEntitiesLiveData = MutableLiveData<List<ItemEntity>>()
 
+    val transactionCompleteLiveData = MutableLiveData<Boolean>()
 
 
     fun init(appDataBase: AppDataBase) {
         repository = ToBuyRepository(appDataBase)
-        Log.i("Coroutine","1")
         viewModelScope.launch {
-            val items = repository.getAllItems()
-            itemEntitiesLiveData.postValue(items)
-            Log.i("Coroutine","3")
+            repository.getAllItems().collect { items ->
+                itemEntitiesLiveData.postValue(items)
+            }
         }
-        Log.i("Coroutine","2")
     }
 
     fun insertItem(itemEntity: ItemEntity) {
         viewModelScope.launch {
             repository.insertItem(itemEntity)
+            transactionCompleteLiveData.postValue(true)
         }
-
     }
 
     fun deleteItem(itemEntity: ItemEntity) {

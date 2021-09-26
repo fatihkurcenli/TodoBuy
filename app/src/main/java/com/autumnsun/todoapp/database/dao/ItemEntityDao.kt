@@ -1,18 +1,16 @@
 package com.autumnsun.todoapp.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.autumnsun.todoapp.database.entity.ItemEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ItemEntityDao {
 
     @Query("SELECT * FROM item_entity")
-    suspend fun getAllItemEntity(): List<ItemEntity>
+    fun getAllItemEntity(): Flow<List<ItemEntity>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(itemEntity: ItemEntity)
 
     @Delete

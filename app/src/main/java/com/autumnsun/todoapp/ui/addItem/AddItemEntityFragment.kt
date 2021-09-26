@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.autumnsun.todoapp.R
 import com.autumnsun.todoapp.database.entity.ItemEntity
 import com.autumnsun.todoapp.databinding.FragmentAddItemEntityBinding
@@ -30,8 +31,30 @@ class AddItemEntityFragment : BaseFragment() {
 
         binding.saveButton.setOnClickListener {
             saveItemEntityDatabase()
+
         }
 
+        sharedViewModel.transactionCompleteLiveData.observe(viewLifecycleOwner) { complete ->
+            if (complete) {
+                mainActivity.hideKeyboard(requireView())
+                Toast.makeText(context, "Item Saved", Toast.LENGTH_SHORT).show()
+                binding.titleEditText.text = null
+                binding.descriptionEditText.text = null
+                binding.radioGroup.check(R.id.radioButtonLow)
+                mainActivity.showKeyboard()
+                binding.titleEditText.requestFocus()
+            }
+        }
+
+
+        mainActivity.showKeyboard()
+        binding.titleEditText.requestFocus()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mainActivity.hideKeyboard(requireView())
+        sharedViewModel.transactionCompleteLiveData.postValue(false)
     }
 
     private fun saveItemEntityDatabase() {

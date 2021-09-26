@@ -1,6 +1,10 @@
 package com.autumnsun.todoapp.ui
 
+import android.app.Activity
+import android.inputmethodservice.InputMethodService
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -36,5 +40,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun hideKeyboard(view: View) {
+        val inputMethodManager =
+            application.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+    }
+
+    fun showKeyboard() {
+        val inm: InputMethodManager =
+            application.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 }
